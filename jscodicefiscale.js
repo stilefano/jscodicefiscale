@@ -236,7 +236,9 @@ const _control_code = input_string => {
  *
  * @param {String} surname
  * @param {String} name
- * @param {Datetime} birthday
+ * @param {Integer} year
+ * @param {Integer} month
+ * @param {Integer} day
  * @param {String} sex
  * @param {String} municipality
  */
