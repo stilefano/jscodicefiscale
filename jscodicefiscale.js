@@ -47,10 +47,10 @@ const isvalid = code => {
 // Fiscal code calculation
 const _common_triplet = (input_string, consonants, vowels) => {
     let output = consonants
-
+    let index = 0
     while (output.length < 3) {
         try {
-            output += vowels[0]
+            output += vowels[index++]
         } catch (e) {
             // If there are less wovels than needed to fill the triplet,
             // (e.g. for a surname as "Fo'" or "Hu" or the corean "Y")
@@ -87,7 +87,6 @@ const _consonants_and_vowels = input_string => {
  */
 const _surname_triplet = input_string => {
     const { consonants, vowels } = _consonants_and_vowels(input_string)
-    console.log(vowels)
     return _common_triplet(input_string, consonants, vowels)
 }
 
@@ -242,14 +241,14 @@ const _control_code = input_string => {
  * @param {String} sex
  * @param {String} municipality
  */
-const build = (surname, name, year, month, day, sex, municipality) => {
+export const buildFc = (surname, name, year, month, day, sex, municipality) => {
     // Computes the fiscal code for the given person data.
     // eg: build('Rocca', 'Emanuele', 1983, 11, 18, 'M', 'D969')
     // -> RCCMNL83S18D969H
 
     let output = _surname_triplet(surname) + _name_triplet(name)
     output += year.toString().substr(2, 2)
-    output += monthscode[month - 1]
+    output += monthscode[month]
     output += sex === 'M' ? day : 40 + day
     output += municipality
     output += _control_code(output)
